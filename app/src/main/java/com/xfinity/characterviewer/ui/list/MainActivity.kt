@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.Menu
+import android.view.MenuItem
 
 import com.xfinity.characterviewer.R
 import com.xfinity.characterviewer.adapters.CharacterAdapter
@@ -35,6 +37,23 @@ class MainActivity : AppCompatActivity(), IView {
 
         iPresenter.callApi()
 
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu,menu)
+        return super.onCreateOptionsMenu(menu)
+
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_toggle -> {
+
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }
