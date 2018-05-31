@@ -16,6 +16,23 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions "version"
+    productFlavors {
+        simsons {
+            applicationId "com.xfinity.simpsonsviewer"
+            resValue "string", "character_type", "simpsons+characters"
+            resValue "string", "app_name", "Simpsons Character Viewer"
+            dimension "version"
+            versionName "1.0.0"
+        }
+        thewire {
+            applicationId "com.xfinity.wireviewer"
+            resValue "string", "character_type", "the+wire+characters"
+            resValue "string", "app_name", " The Wire Character Viewer"
+            dimension "version"
+            versionName "1.0.0"
+        }
+    }
 }
 
 dependencies {
