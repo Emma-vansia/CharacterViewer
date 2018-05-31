@@ -3,6 +3,7 @@ package com.xfinity.characterviewer.ui.list
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Menu
@@ -15,9 +16,15 @@ class MainActivity : AppCompatActivity(), IView {
 
     lateinit var recyclerView: RecyclerView
     lateinit var iPresenter: IPresenter
+    var toggle: Boolean = false
     override fun displayRecyclerView() {
         recyclerView = findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        if (toggle == true) {
+            recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        }
+        else{
+            recyclerView.layoutManager = GridLayoutManager(this,2)
+        }
         recyclerView.itemAnimator = DefaultItemAnimator()
         recyclerView.setHasFixedSize(true)
     }

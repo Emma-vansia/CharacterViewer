@@ -1,4 +1,4 @@
-package com.xfinity.characterviewer.network
+package com.xfinity.network
 
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
