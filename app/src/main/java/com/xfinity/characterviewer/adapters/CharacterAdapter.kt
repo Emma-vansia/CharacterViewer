@@ -8,11 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.xfinity.characterviewer.R
-import com.xfinity.characterviewer.model.Character
+import com.xfinity.characterviewer.model.CharacterNames
 import com.xfinity.characterviewer.ui.details.DetailsActivity
 
 
-class CharacterAdapter(internal var context: Context, internal var charList: List<Character>) : RecyclerView.Adapter<CharacterAdapter.MyViewHolder>() {
+class CharacterAdapter(internal var context: Context, internal var charList: List<CharacterNames>) : RecyclerView.Adapter<CharacterAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val mVH: MyViewHolder
@@ -25,12 +25,12 @@ class CharacterAdapter(internal var context: Context, internal var charList: Lis
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val character = charList.get(position)
-        holder.title.text = "Title: " + character.title()
+        holder.title.text = context.getString(R.string.title) + character.heading()
         holder.title.setOnClickListener(View.OnClickListener {
             val intent = Intent(context, DetailsActivity::class.java)
-            intent.putExtra("title", character.title())
-            intent.putExtra("description", character.description())
-            intent.putExtra("icon", character.Icon.URL)
+            intent.putExtra(context.getString(R.string.heading), character.heading())
+            intent.putExtra(context.getString(R.string.explaination), character.explaination())
+            intent.putExtra(context.getString(R.string.icon), character.Icon.URL)
             context.startActivity(intent)
         })
 

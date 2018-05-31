@@ -3,9 +3,15 @@ package com.xfinity.characterviewer.ui.list
 import android.content.Context
 import android.util.Log
 import com.xfinity.characterviewer.adapters.CharacterAdapter
-import com.xfinity.characterviewer.model.Characters
+import com.xfinity.characterviewer.model.Names
 import com.xfinity.characterviewer.network.ApiService
 import com.xfinity.characterviewer.network.RetrofitInstance
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import org.reactivestreams.Subscriber
+import org.reactivestreams.Subscription
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,22 +26,27 @@ class Presenter(internal var context: Context, internal var iView: IView) : IPre
     }
 
     override fun callApi() {
-        val apiService = RetrofitInstance.retrofitInstance.create(ApiService::class.java)
-        val charCall = apiService.getCharacterList()
         var characterAdapter: CharacterAdapter? = null
-        charCall.enqueue(object : Callback<Characters> {
-            override fun onResponse(call: Call<Characters>, response: Response<Characters>) {
-                Log.i("response", " " + response.body()!!.RelatedTopics)
-                characterAdapter = CharacterAdapter(context, response.body()!!.RelatedTopics)
+         RetrofitInstance.retrofitInstance.create(ApiService::class.java).getCharacterList().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(object : Observer<Names> {
+                     override fun onComplete() {
 
-                iView.setAdapter(characterAdapter!!)
-            }
+                     }
 
-            override fun onFailure(call: Call<Characters>, t: Throwable) {
+                     override fun onSubscribe(d: Disposable) {
 
+                     }
 
-            }
-        })
+                     override fun onNext(t: Names) {
+                         characterAdapter = CharacterAdapter(context, t!!.RelatedTopics)
+                         iView.setAdapter(characterAdapter!!)
+                     }
 
+                     override fun onError(e: Throwable) {
+
+                     }
+
+                 })
     }
+
 }

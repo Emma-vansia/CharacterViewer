@@ -20,9 +20,14 @@ class DetailsActivity : AppCompatActivity() {
         title = findViewById(R.id.descTitle)
         description = findViewById(R.id.description)
         icon = findViewById(R.id.icon)
-        title.text = intent.extras["title"].toString()
-        description.text = intent.extras["description"].toString()
-        Picasso.with(this).load(intent.extras["icon"].toString()).into(icon)
+        title.text = intent.extras[this.getString(R.string.title)].toString()
+        description.text = intent.extras[this.getString(R.string.explaination)].toString()
+        if(intent.extras[this.getString(R.string.icon)].toString().isEmpty()){
+            Picasso.with(this).load(R.drawable.ic_launcher_background).into(icon)
+        }
+        else {
+            Picasso.with(this).load(intent.extras["icon"].toString()).into(icon)
+        }
 
     }
 }

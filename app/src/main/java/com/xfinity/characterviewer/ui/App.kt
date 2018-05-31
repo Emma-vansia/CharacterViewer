@@ -19,5 +19,5 @@ class App : Application() {
         this.resources.getBoolean(R.bool.is_tablet)
     }
 
-    fun getCharacterType() = resources.getString(R.string.character_type)
+    fun getApiEndPoint() = resources.getString(R.string.api_end_point)
 }
