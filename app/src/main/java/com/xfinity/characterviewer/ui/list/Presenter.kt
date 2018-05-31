@@ -26,7 +26,7 @@ class Presenter(internal var context: Context, internal var iView: IView) : IPre
     }
 
     override fun callApi() {
-        var characterAdapter: CharacterAdapter? = null
+
          RetrofitInstance.retrofitInstance.create(ApiService::class.java).getCharacterList().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(object : Observer<Names> {
                      override fun onComplete() {
@@ -38,8 +38,8 @@ class Presenter(internal var context: Context, internal var iView: IView) : IPre
                      }
 
                      override fun onNext(t: Names) {
-                         characterAdapter = CharacterAdapter(context, t!!.RelatedTopics)
-                         iView.setAdapter(characterAdapter!!)
+
+                         iView.setAdapter(t!!.RelatedTopics)
                      }
 
                      override fun onError(e: Throwable) {

@@ -7,7 +7,21 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import com.xfinity.characterviewer.R
 
-class DetailsActivity : AppCompatActivity() {
+class DetailsActivity : AppCompatActivity(),IDetailsView {
+
+
+    lateinit var iDetailsPresenter: IDetailsPresenter
+    override fun display() {
+        title.text = intent.getStringExtra(this.getString(R.string.heading))
+        description.text = intent.getStringExtra(this.getString(R.string.explaination))
+        if(intent.extras[this.getString(R.string.icon)].toString().isEmpty()){
+            Picasso.with(this).load(R.drawable.ic_launcher_background).into(icon)
+        }
+        else {
+            Picasso.with(this).load(intent.extras[this.getString(R.string.icon)].toString()).into(icon)
+        }
+
+    }
 
 
     lateinit var  title:TextView
@@ -20,14 +34,8 @@ class DetailsActivity : AppCompatActivity() {
         title = findViewById(R.id.descTitle)
         description = findViewById(R.id.description)
         icon = findViewById(R.id.icon)
-        title.text = intent.extras[this.getString(R.string.title)].toString()
-        description.text = intent.extras[this.getString(R.string.explaination)].toString()
-        if(intent.extras[this.getString(R.string.icon)].toString().isEmpty()){
-            Picasso.with(this).load(R.drawable.ic_launcher_background).into(icon)
-        }
-        else {
-            Picasso.with(this).load(intent.extras["icon"].toString()).into(icon)
-        }
+        iDetailsPresenter = DetailsPresenter(this, this)
+        iDetailsPresenter.loadView()
 
     }
 }

@@ -15,9 +15,5 @@ class App : Application() {
         appInstance = this
     }
 
-    val isTablet: Boolean by lazy {
-        this.resources.getBoolean(R.bool.is_tablet)
-    }
-
     fun getApiEndPoint() = resources.getString(R.string.api_end_point)
 }

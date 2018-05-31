@@ -11,11 +11,15 @@ import android.view.MenuItem
 
 import com.xfinity.characterviewer.R
 import com.xfinity.characterviewer.adapters.CharacterAdapter
+import com.xfinity.characterviewer.model.CharacterNames
+import kotlinx.android.synthetic.main.recycler_view.*
 
 class MainActivity : AppCompatActivity(), IView {
 
     lateinit var recyclerView: RecyclerView
     lateinit var iPresenter: IPresenter
+    var characterAdapter: CharacterAdapter? = null
+    var isTablet:Boolean = false
     var toggle: Boolean = false
     override fun displayRecyclerView() {
         recyclerView = findViewById(R.id.recyclerView)
@@ -29,19 +33,27 @@ class MainActivity : AppCompatActivity(), IView {
         recyclerView.setHasFixedSize(true)
     }
 
-    override fun setAdapter(characterAdapter: CharacterAdapter) {
+    override fun setAdapter(characterList: List<CharacterNames>) {
+
+
+        if(frameLayout == null){
+            isTablet = false
+        }
+        else{
+            isTablet = true
+        }
+        characterAdapter = CharacterAdapter(this, characterList,isTablet)
         recyclerView.adapter = characterAdapter
 
     }
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         iPresenter = Presenter(this, this)
-
         iPresenter.callApi()
 
     }

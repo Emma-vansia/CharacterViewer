@@ -24,17 +24,13 @@ android {
     productFlavors {
         simsons {
             applicationId "com.xfinity.simpsonsviewer"
-            resValue "string", "api_end_point", "simpsons+characters"
-            resValue "string", "app_name", "Simpsons CharacterNames Viewer"
             dimension "version"
-            versionName "1.0.0"
+            versionName "1.0"
         }
         thewire {
             applicationId "com.xfinity.wireviewer"
-            resValue "string", "api_end_point", "the+wire+characters"
-            resValue "string", "app_name", " The Wire CharacterNames Viewer"
             dimension "version"
-            versionName "1.0.0"
+            versionName "1.0"
         }
     }
 }
