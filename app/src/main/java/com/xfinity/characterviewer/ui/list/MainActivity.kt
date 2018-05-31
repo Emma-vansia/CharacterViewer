@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity(), IView {
     var toggle: Boolean = false
     override fun displayRecyclerView() {
         recyclerView = findViewById(R.id.recyclerView)
-        if (toggle == true) {
+        if (toggle == false) {
             recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         }
         else{
@@ -57,7 +57,14 @@ class MainActivity : AppCompatActivity(), IView {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_toggle -> {
-
+                if (toggle == true){
+                    toggle = false
+                    iPresenter.changeLayout()
+                }
+                else{
+                    toggle = true
+                    iPresenter.changeLayout()
+                }
             }
         }
         return super.onOptionsItemSelected(item)

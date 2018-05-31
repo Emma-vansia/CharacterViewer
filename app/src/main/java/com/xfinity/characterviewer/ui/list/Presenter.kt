@@ -4,13 +4,16 @@ import android.content.Context
 import android.util.Log
 import com.xfinity.characterviewer.adapters.CharacterAdapter
 import com.xfinity.characterviewer.model.Characters
-import com.xfinity.network.ApiService
-import com.xfinity.network.RetrofitInstance
+import com.xfinity.characterviewer.network.ApiService
+import com.xfinity.characterviewer.network.RetrofitInstance
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class Presenter(internal var context: Context, internal var iView: IView) : IPresenter {
+    override fun changeLayout() {
+        iView.displayRecyclerView()
+    }
 
     init {
         iView.displayRecyclerView()

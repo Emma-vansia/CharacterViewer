@@ -1,4 +1,4 @@
-package com.xfinity.network
+package com.xfinity.characterviewer.network
 
 import com.xfinity.characterviewer.model.Characters
 import com.xfinity.characterviewer.ui.App
