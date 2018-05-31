@@ -14,8 +14,6 @@ object RetrofitInstance {
 
     val retrofitInstance: Retrofit
         get() {
-
-
             val gson = GsonBuilder()
                     .setLenient()
                     .create()
