@@ -2,10 +2,7 @@ package com.xfinity.characterviewer.ui.list
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.*
 import android.view.Menu
 import android.view.MenuItem
 
@@ -20,10 +17,11 @@ class MainActivity : AppCompatActivity(), IView {
     lateinit var iPresenter: IPresenter
     var characterAdapter: CharacterAdapter? = null
     var isTablet:Boolean = false
-    var toggle: Boolean = false
+    var toggle: Boolean = true
+    lateinit var toolbar:Toolbar
     override fun displayRecyclerView() {
         recyclerView = findViewById(R.id.recyclerView)
-        if (toggle == false) {
+        if (toggle == true) {
             recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         }
         else{
@@ -64,6 +62,7 @@ class MainActivity : AppCompatActivity(), IView {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu,menu)
         return super.onCreateOptionsMenu(menu)
+
 
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

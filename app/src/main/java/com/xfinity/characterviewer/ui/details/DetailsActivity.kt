@@ -2,6 +2,7 @@ package com.xfinity.characterviewer.ui.details
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.ActionBar
 import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
@@ -15,7 +16,7 @@ class DetailsActivity : AppCompatActivity(),IDetailsView {
         title.text = intent.getStringExtra(this.getString(R.string.heading))
         description.text = intent.getStringExtra(this.getString(R.string.explaination))
         if(intent.extras[this.getString(R.string.icon)].toString().isEmpty()){
-            Picasso.with(this).load(R.drawable.ic_launcher_background).into(icon)
+            icon.setImageResource(R.drawable.preview)
         }
         else {
             Picasso.with(this).load(intent.extras[this.getString(R.string.icon)].toString()).into(icon)
@@ -37,5 +38,12 @@ class DetailsActivity : AppCompatActivity(),IDetailsView {
         iDetailsPresenter = DetailsPresenter(this, this)
         iDetailsPresenter.loadView()
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        var actionBar: ActionBar? = this.supportActionBar
+        actionBar?.setTitle( intent.getStringExtra(this.getString(R.string.heading)))
     }
 }

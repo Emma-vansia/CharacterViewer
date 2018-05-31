@@ -12,7 +12,19 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import com.xfinity.characterviewer.R
 
-class DetailsFragment : Fragment() {
+class DetailsFragment : Fragment(),IDetailsView {
+
+    lateinit var iDetailsPresenter: IDetailsPresenter
+    override fun display() {
+        title.text = arguments.get(this.getString(R.string.heading))!!.toString()
+        explaination.text = arguments.get(this.getString(R.string.explaination))!!.toString()
+
+        if (arguments.get(this.getString(R.string.icon)).toString().isEmpty()) {
+            icon.setImageResource(R.drawable.preview)
+        } else {
+            Picasso.with(activity).load(arguments.get(this.getString(R.string.icon)).toString()).into(icon)
+        }
+    }
 
     lateinit var title: TextView
     lateinit var explaination: TextView
@@ -26,14 +38,9 @@ class DetailsFragment : Fragment() {
         explaination = view.findViewById(R.id.description)
         icon = view.findViewById(R.id.icon)
 
-        title.text = arguments.get(this.getString(R.string.heading))!!.toString()
-        explaination.text = arguments.get(this.getString(R.string.explaination))!!.toString()
+        iDetailsPresenter = DetailsPresenter(activity, this)
+        iDetailsPresenter.loadView()
 
-        if (arguments.get(this.getString(R.string.icon)).toString().isEmpty()) {
-            Picasso.with(activity).load(R.drawable.ic_dashboard_black_24dp).into(icon)
-        } else {
-            Picasso.with(activity).load(arguments.get(this.getString(R.string.icon)).toString()).into(icon)
-        }
         return view
     }
 

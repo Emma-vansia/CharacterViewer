@@ -30,7 +30,7 @@ class CharacterAdapter(private var context: MainActivity, internal var charList:
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val character = charList.get(position)
-        holder.title.text = context.getString(R.string.title) + character.heading()
+        holder.title.text =  character.heading()
 
         if(isTablet){
             holder.itemView.setOnClickListener({
