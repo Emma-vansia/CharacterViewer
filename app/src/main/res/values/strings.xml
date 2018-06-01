@@ -1,9 +1,9 @@
 <resources>
 
-    <string name="title">Title:</string>
     <string name="heading">heading</string>
-    <string name="explaination">explaination</string>
+    <string name="explanation">explanation</string>
     <string name="icon">icon</string>
+    <string name="toggle">toggle</string>
 
 
 </resources>

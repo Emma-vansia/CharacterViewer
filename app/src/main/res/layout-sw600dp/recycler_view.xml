@@ -23,7 +23,6 @@
         android:layout_weight="0.7"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="637dp"
-        tools:layout_editor_absoluteY="0dp">
-
-    </FrameLayout>
+        tools:layout_editor_absoluteY="0dp"
+        tools:ignore="InconsistentLayout" />
 </LinearLayout>

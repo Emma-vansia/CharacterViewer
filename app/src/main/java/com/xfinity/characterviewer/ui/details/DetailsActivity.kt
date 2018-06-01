@@ -11,10 +11,10 @@ import com.xfinity.characterviewer.R
 class DetailsActivity : AppCompatActivity(),IDetailsView {
 
 
-    lateinit var iDetailsPresenter: IDetailsPresenter
+    private lateinit var iDetailsPresenter: IDetailsPresenter
     override fun display() {
         title.text = intent.getStringExtra(this.getString(R.string.heading))
-        description.text = intent.getStringExtra(this.getString(R.string.explaination))
+        description.text = intent.getStringExtra(this.getString(R.string.explanation))
         if(intent.extras[this.getString(R.string.icon)].toString().isEmpty()){
             icon.setImageResource(R.drawable.preview)
         }
@@ -35,7 +35,7 @@ class DetailsActivity : AppCompatActivity(),IDetailsView {
         title = findViewById(R.id.descTitle)
         description = findViewById(R.id.description)
         icon = findViewById(R.id.icon)
-        iDetailsPresenter = DetailsPresenter(this, this)
+        iDetailsPresenter = DetailsPresenter(this)
         iDetailsPresenter.loadView()
 
     }
@@ -43,7 +43,7 @@ class DetailsActivity : AppCompatActivity(),IDetailsView {
     override fun onResume() {
         super.onResume()
 
-        var actionBar: ActionBar? = this.supportActionBar
-        actionBar?.setTitle( intent.getStringExtra(this.getString(R.string.heading)))
+        val actionBar: ActionBar? = this.supportActionBar
+        actionBar?.title = intent.getStringExtra(this.getString(R.string.heading))
     }
 }

@@ -2,7 +2,7 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:title="toggle"
+        android:title="@string/toggle"
         android:id="@+id/action_toggle"
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:orderInCategory="2"

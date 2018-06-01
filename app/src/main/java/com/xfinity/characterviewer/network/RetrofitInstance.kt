@@ -8,22 +8,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitInstance {
 
 
-    internal val BASE_URL = "http://api.duckduckgo.com"
+    private const val BASE_URL = "http://api.duckduckgo.com"
 
-    internal lateinit var retrofit: Retrofit
+    private val gson = GsonBuilder()
+            .setLenient()
+            .create()
+    val retrofitInstance: Retrofit by lazy {
+        Retrofit.Builder()
+                .baseUrl(BASE_URL).addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build()
+    }
 
-    val retrofitInstance: Retrofit
-        get() {
-            val gson = GsonBuilder()
-                    .setLenient()
-                    .create()
-
-            retrofit = Retrofit.Builder()
-                    .baseUrl(BASE_URL).addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .build()
-
-            return retrofit
-
-        }
 }

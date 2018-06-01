@@ -14,14 +14,13 @@ import kotlinx.android.synthetic.main.recycler_view.*
 class MainActivity : AppCompatActivity(), IView {
 
     lateinit var recyclerView: RecyclerView
-    lateinit var iPresenter: IPresenter
-    var characterAdapter: CharacterAdapter? = null
-    var isTablet:Boolean = false
-    var toggle: Boolean = true
-    lateinit var toolbar:Toolbar
+    private lateinit var iPresenter: IPresenter
+
+    private var isTablet:Boolean = false
+    private var toggle: Boolean = true
     override fun displayRecyclerView() {
         recyclerView = findViewById(R.id.recyclerView)
-        if (toggle == true) {
+        if (toggle) {
             recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         }
         else{
@@ -32,26 +31,16 @@ class MainActivity : AppCompatActivity(), IView {
     }
 
     override fun setAdapter(characterList: List<CharacterNames>) {
-
-
-        if(frameLayout == null){
-            isTablet = false
-        }
-        else{
-            isTablet = true
-        }
-        characterAdapter = CharacterAdapter(this, characterList,isTablet)
-        recyclerView.adapter = characterAdapter
+        isTablet = frameLayout != null
+        recyclerView.adapter = CharacterAdapter(this, characterList,isTablet)
 
     }
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        iPresenter = Presenter(this, this)
+        iPresenter = Presenter(this)
         iPresenter.callApi()
 
     }
@@ -68,14 +57,8 @@ class MainActivity : AppCompatActivity(), IView {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_toggle -> {
-                if (toggle == true){
-                    toggle = false
-                    iPresenter.changeLayout()
-                }
-                else{
-                    toggle = true
-                    iPresenter.changeLayout()
-                }
+                toggle = !toggle
+                iPresenter.changeLayout()
             }
         }
         return super.onOptionsItemSelected(item)

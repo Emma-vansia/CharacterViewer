@@ -15,5 +15,5 @@ class App : Application() {
         appInstance = this
     }
 
-    fun getApiEndPoint() = resources.getString(R.string.api_end_point)
+    fun getApiEndPoint(): String = resources.getString(R.string.api_end_point)
 }

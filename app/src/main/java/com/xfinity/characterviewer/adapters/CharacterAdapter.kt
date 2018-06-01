@@ -1,14 +1,11 @@
 package com.xfinity.characterviewer.adapters
 
-import android.app.FragmentManager
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.TextView
 import com.xfinity.characterviewer.R
 import com.xfinity.characterviewer.model.CharacterNames
@@ -17,7 +14,7 @@ import com.xfinity.characterviewer.ui.details.DetailsFragment
 import com.xfinity.characterviewer.ui.list.MainActivity
 
 
-class CharacterAdapter(private var context: MainActivity, internal var charList: List<CharacterNames>, private val isTablet:Boolean) : RecyclerView.Adapter<CharacterAdapter.MyViewHolder>() {
+class CharacterAdapter(private var context: MainActivity, private var charList: List<CharacterNames>, private val isTablet:Boolean) : RecyclerView.Adapter<CharacterAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val mVH: MyViewHolder
@@ -29,24 +26,24 @@ class CharacterAdapter(private var context: MainActivity, internal var charList:
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val character = charList.get(position)
+        val character = charList[position]
         holder.title.text =  character.heading()
 
         if(isTablet){
             holder.itemView.setOnClickListener({
-                var detailsFragment=DetailsFragment()
-                var bundle = Bundle()
+                val detailsFragment=DetailsFragment()
+                val bundle = Bundle()
                 bundle.putString(context.getString(R.string.heading), character.heading())
-                bundle.putString(context.getString(R.string.explaination), character.explaination())
+                bundle.putString(context.getString(R.string.explanation), character.explanation())
                 bundle.putString(context.getString(R.string.icon), character.Icon.URL)
-                detailsFragment.setArguments(bundle)
+                detailsFragment.arguments = bundle
                 context.fragmentManager.beginTransaction().replace(R.id.frameLayout,detailsFragment).commit()
             })
         }else{
             holder.itemView.setOnClickListener({
                 val intent = Intent(context, DetailsActivity::class.java)
                 intent.putExtra(context.getString(R.string.heading), character.heading())
-                intent.putExtra(context.getString(R.string.explaination), character.explaination())
+                intent.putExtra(context.getString(R.string.explanation), character.explanation())
                 intent.putExtra(context.getString(R.string.icon), character.Icon.URL)
                 context.startActivity(intent)
             })
@@ -59,13 +56,8 @@ class CharacterAdapter(private var context: MainActivity, internal var charList:
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
-        var title: TextView
+        var title: TextView = itemView.findViewById(R.id.title)
 
-        init {
-            title = itemView.findViewById(R.id.title)
-
-
-        }
     }
 
 
