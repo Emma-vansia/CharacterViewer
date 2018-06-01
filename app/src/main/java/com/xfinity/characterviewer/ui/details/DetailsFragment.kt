@@ -43,5 +43,4 @@ class DetailsFragment : Fragment(),IDetailsView {
         return view
     }
 
-
 }

@@ -12,6 +12,13 @@ import com.xfinity.characterviewer.model.CharacterNames
 import com.xfinity.characterviewer.ui.details.DetailsActivity
 import com.xfinity.characterviewer.ui.details.DetailsFragment
 import com.xfinity.characterviewer.ui.list.MainActivity
+import android.app.ActivityOptions
+import android.view.animation.AnimationUtils
+import android.view.animation.Animation
+
+
+
+
 
 
 class CharacterAdapter(private var context: MainActivity, private var charList: List<CharacterNames>, private val isTablet:Boolean) : RecyclerView.Adapter<CharacterAdapter.MyViewHolder>() {
@@ -28,6 +35,8 @@ class CharacterAdapter(private var context: MainActivity, private var charList: 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val character = charList[position]
         holder.title.text =  character.heading()
+        val animation:Animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
+        holder.itemView.startAnimation(animation);
 
         if(isTablet){
             holder.itemView.setOnClickListener({
@@ -45,7 +54,8 @@ class CharacterAdapter(private var context: MainActivity, private var charList: 
                 intent.putExtra(context.getString(R.string.heading), character.heading())
                 intent.putExtra(context.getString(R.string.explanation), character.explanation())
                 intent.putExtra(context.getString(R.string.icon), character.Icon.URL)
-                context.startActivity(intent)
+                val options = ActivityOptions.makeCustomAnimation(context, R.anim.bounce_animation, R.anim.bounce_animation)
+                context.startActivity(intent,options.toBundle())
             })
         }
     }

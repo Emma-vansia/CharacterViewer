@@ -10,6 +10,10 @@ import com.xfinity.characterviewer.R
 import com.xfinity.characterviewer.adapters.CharacterAdapter
 import com.xfinity.characterviewer.model.CharacterNames
 import kotlinx.android.synthetic.main.recycler_view.*
+import android.view.animation.AnimationUtils
+import android.view.animation.LayoutAnimationController
+
+
 
 class MainActivity : AppCompatActivity(), IView {
 
@@ -26,7 +30,11 @@ class MainActivity : AppCompatActivity(), IView {
         else{
             recyclerView.layoutManager = GridLayoutManager(this,2)
         }
-        recyclerView.itemAnimator = DefaultItemAnimator()
+
+
+        val resId = R.anim.layout_animation_fall_down
+        val animation = AnimationUtils.loadLayoutAnimation(this, resId)
+        recyclerView.setLayoutAnimation(animation)
         recyclerView.setHasFixedSize(true)
     }
 
@@ -64,4 +72,8 @@ class MainActivity : AppCompatActivity(), IView {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.bounce_animation,R.anim.bounce_animation)
+    }
 }

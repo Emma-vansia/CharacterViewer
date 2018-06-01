@@ -46,4 +46,9 @@ class DetailsActivity : AppCompatActivity(),IDetailsView {
         val actionBar: ActionBar? = this.supportActionBar
         actionBar?.title = intent.getStringExtra(this.getString(R.string.heading))
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.bounce_animation,R.anim.bounce_animation)
+    }
 }
