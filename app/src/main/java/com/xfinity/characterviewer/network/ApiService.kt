@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-//http://api.duckduckgo.com/?q=simpsons+characters&format=json
+    //http://api.duckduckgo.com/?q=simpsons+characters&format=json
 
 
     @GET("/")

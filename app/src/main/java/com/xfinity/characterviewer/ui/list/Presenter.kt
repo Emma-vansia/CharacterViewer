@@ -30,7 +30,7 @@ class Presenter(internal var iView: IView) : IPresenter {
                      }
 
                      override fun onNext(t: Names) {
-
+                        // set the adapter after getting the response
                          iView.setAdapter(t.RelatedTopics)
                      }
 

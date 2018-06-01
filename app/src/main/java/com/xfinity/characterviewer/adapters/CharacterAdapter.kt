@@ -38,6 +38,7 @@ class CharacterAdapter(private var context: MainActivity, private var charList: 
         val animation:Animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
         holder.itemView.startAnimation(animation);
 
+        //on click of the list item of tablet or phone
         if(isTablet){
             holder.itemView.setOnClickListener({
                 val detailsFragment=DetailsFragment()
@@ -54,7 +55,7 @@ class CharacterAdapter(private var context: MainActivity, private var charList: 
                 intent.putExtra(context.getString(R.string.heading), character.heading())
                 intent.putExtra(context.getString(R.string.explanation), character.explanation())
                 intent.putExtra(context.getString(R.string.icon), character.Icon.URL)
-                val options = ActivityOptions.makeCustomAnimation(context, R.anim.bounce_animation, R.anim.bounce_animation)
+                val options = ActivityOptions.makeCustomAnimation(context, R.anim.abc_grow_fade_in_from_bottom, R.anim.abc_shrink_fade_out_from_bottom)
                 context.startActivity(intent,options.toBundle())
             })
         }

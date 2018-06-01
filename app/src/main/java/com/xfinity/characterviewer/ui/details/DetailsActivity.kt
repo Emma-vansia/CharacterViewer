@@ -13,6 +13,7 @@ class DetailsActivity : AppCompatActivity(),IDetailsView {
 
     private lateinit var iDetailsPresenter: IDetailsPresenter
     override fun display() {
+        //display the details
         title.text = intent.getStringExtra(this.getString(R.string.heading))
         description.text = intent.getStringExtra(this.getString(R.string.explanation))
         if(intent.extras[this.getString(R.string.icon)].toString().isEmpty()){
@@ -42,13 +43,14 @@ class DetailsActivity : AppCompatActivity(),IDetailsView {
 
     override fun onResume() {
         super.onResume()
-
+        // to set the title to the action bar
         val actionBar: ActionBar? = this.supportActionBar
         actionBar?.title = intent.getStringExtra(this.getString(R.string.heading))
     }
 
+    //to add an animation when back button is pressed
     override fun onBackPressed() {
         super.onBackPressed()
-        overridePendingTransition(R.anim.bounce_animation,R.anim.bounce_animation)
+        overridePendingTransition(R.anim.abc_grow_fade_in_from_bottom,R.anim.abc_shrink_fade_out_from_bottom)
     }
 }

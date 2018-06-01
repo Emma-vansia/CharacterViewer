@@ -11,8 +11,6 @@ import com.xfinity.characterviewer.adapters.CharacterAdapter
 import com.xfinity.characterviewer.model.CharacterNames
 import kotlinx.android.synthetic.main.recycler_view.*
 import android.view.animation.AnimationUtils
-import android.view.animation.LayoutAnimationController
-
 
 
 class MainActivity : AppCompatActivity(), IView {
@@ -23,15 +21,13 @@ class MainActivity : AppCompatActivity(), IView {
     private var isTablet:Boolean = false
     private var toggle: Boolean = true
     override fun displayRecyclerView() {
-        recyclerView = findViewById(R.id.recyclerView)
         if (toggle) {
             recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         }
         else{
             recyclerView.layoutManager = GridLayoutManager(this,2)
         }
-
-
+        //animation for recycler view
         val resId = R.anim.layout_animation_fall_down
         val animation = AnimationUtils.loadLayoutAnimation(this, resId)
         recyclerView.setLayoutAnimation(animation)
@@ -39,6 +35,7 @@ class MainActivity : AppCompatActivity(), IView {
     }
 
     override fun setAdapter(characterList: List<CharacterNames>) {
+        //set the adapter using the list which we receiced from the server
         isTablet = frameLayout != null
         recyclerView.adapter = CharacterAdapter(this, characterList,isTablet)
 
@@ -47,6 +44,7 @@ class MainActivity : AppCompatActivity(), IView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        recyclerView = findViewById(R.id.recyclerView)
 
         iPresenter = Presenter(this)
         iPresenter.callApi()
@@ -55,15 +53,17 @@ class MainActivity : AppCompatActivity(), IView {
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-
+        // to inflate the menu
         val inflater = menuInflater
         inflater.inflate(R.menu.menu,menu)
         return super.onCreateOptionsMenu(menu)
 
 
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            //change the layout to grid or list view
             R.id.action_toggle -> {
                 toggle = !toggle
                 iPresenter.changeLayout()
@@ -72,8 +72,9 @@ class MainActivity : AppCompatActivity(), IView {
         return super.onOptionsItemSelected(item)
     }
 
+    // to add the animation on back pressed
     override fun onBackPressed() {
         super.onBackPressed()
-        overridePendingTransition(R.anim.bounce_animation,R.anim.bounce_animation)
+        overridePendingTransition(R.anim.abc_grow_fade_in_from_bottom,R.anim.abc_shrink_fade_out_from_bottom)
     }
 }

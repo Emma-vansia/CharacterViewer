@@ -15,6 +15,7 @@ class DetailsFragment : Fragment(),IDetailsView {
 
     private lateinit var iDetailsPresenter: IDetailsPresenter
     override fun display() {
+        // display the details
         title.text = arguments.get(this.getString(R.string.heading))!!.toString()
         explanation.text = arguments.get(this.getString(R.string.explanation))!!.toString()
 
